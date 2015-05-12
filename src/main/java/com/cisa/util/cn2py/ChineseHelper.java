@@ -6,7 +6,7 @@ import java.util.Properties;
 
 /**
  * 汉字简繁体转换类
- *
+ * 
  * @author Daniel
  * @version 1.0
  */

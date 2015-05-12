@@ -6,7 +6,7 @@ import java.util.Properties;
 
 /**
  * 资源文件加载类
- *
+ * 
  * @author Daniel
  * @version 1.0
  */

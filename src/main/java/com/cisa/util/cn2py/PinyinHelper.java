@@ -6,7 +6,7 @@ import java.util.Set;
 
 /**
  * 汉字转拼音类
- *
+ * 
  * @author Daniel
  * @version 1.0
  */
@@ -130,7 +130,7 @@ public class PinyinHelper {
 
 	/**
 	 * 将字符串转换成相应格式的拼音
-	 * 
+	 *
 	 * @param str
 	 *            需要转换的字符串
 	 * @param separator
