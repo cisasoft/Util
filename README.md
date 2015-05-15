@@ -7,6 +7,9 @@ ChineseHelper
 PinyinHelper
 读取汉字，解析拼音
 
+EnglishHelper
+英文字符串处理类
+
 QRCodeHelper
 二维码工具
 
