@@ -4,14 +4,31 @@ import java.io.File;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
 
+/**
+ * windows环境下的office转pdf 必要条件： 两个动态运行库dll放入java的bin目录, OS上存在MSOffice软件
+ * 
+ * @author Xiaolong.Cisa
+ * @version 1.0
+ * 
+ */
 public class Office2pdfHelper {
 
 	private static final int wdFormatPDF = 17;
 	private static final int xlTypePDF = 0;
 	private static final int ppSaveAsPDF = 32;
-	//private static final int msoTrue = -1;
-	//private static final int msofalse = 0;
 
+	// private static final int msoTrue = -1;
+	// private static final int msofalse = 0;
+
+	/**
+	 * 转PDF的调用方法
+	 * 
+	 * @param inputFile
+	 *            输入文件来源，例如：C:\\test\\src.xls
+	 * @param pdfFile
+	 *            输出pdf目标，例如：C:\\test\\target.pdf
+	 * @return 是否转换成功的布尔值
+	 */
 	// 直接调用这个方法即可
 	public boolean convert2PDF(String inputFile, String pdfFile) {
 		String suffix = getFileSufix(inputFile);
@@ -110,19 +127,12 @@ public class Office2pdfHelper {
 		}
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	/*public static void main(String[] args) {
 		Office2pdfHelper oh = new Office2pdfHelper();
-		System.out.println(System.getProperty("java.library.path"));
-		System.loadLibrary("jacob-1.17-M2-x64");
-		//System.load("C:\\Users\\Niexl\\Workspaces\\MyEclipse for Spring 2014\\office2pdf\\src\\main\\resources\\jacob-1.17-M2-x86.dll");
-		
-		String s1 = "D:\\projectTools\\apache-tomcat-8.0.23\\webapps\\wxb\\upload\\test\\2015061013173383642Book1.xls";
-		String s2 = "D:\\projectTools\\apache-tomcat-8.0.23\\webapps\\wxb\\pdfview\\2015061013173383642Book1.pdf";
+		// System.out.println(System.getProperty("java.library.path"));
+		// System.loadLibrary("jacob-1.17-M2-x86");
+		String s1 = "c:\\test\\es.xlsx";
+		String s2 = "c:\\test\\et.pdf";
 		oh.convert2PDF(s1, s2);
-//		oh.convert2PDF(
-//				"D:\\projectTools\\apache-tomcat-8.0.23\\webapps\\wxb\\upload\\test\\2015061013173383642Book1.xls",
-//				"D:\\projectTools\\apache-tomcat-8.0.23\\webapps\\wxb\\pdfview\\test.pdf");
-	}
-
+	}*/
 }

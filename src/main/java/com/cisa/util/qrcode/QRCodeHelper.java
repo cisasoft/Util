@@ -65,9 +65,9 @@ public class QRCodeHelper {
 	 * @param charset
 	 * 			字符串编码，例如："UTF-8"
 	 * @return 解析出来的字符串
-	 * @throws FileNotFoundException
-	 * @throws IOException
-	 * @throws NotFoundException
+	 * @throws FileNotFoundException 文件未找到
+	 * @throws IOException IO流问题
+	 * @throws NotFoundException 未找到信息
 	 */
 	public static String readQRCode(String filePath, String charset)
 			throws FileNotFoundException, IOException, NotFoundException {

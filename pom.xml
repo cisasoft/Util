@@ -5,7 +5,7 @@
 	<artifactId>cisautil</artifactId>
 	<version>0.1</version>
 	<!-- Change packaging to war or jar here -->
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<build>
 		<plugins>
 			<plugin>
@@ -70,6 +70,12 @@
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
+			<version>1.9</version>
 		</dependency>
 
 		<dependency>

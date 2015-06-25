@@ -26,7 +26,7 @@ public class IpHelper {
 	/**
 	 * 获取登录用户的IP数字地址
 	 * 
-	 * @param HTTP请求的request，类型为HttpServletRequest
+	 * @param request HTTP请求的request，类型为HttpServletRequest
 	 * @return IP的String类型字符串
 	 */
 	public static String getIpAddr(HttpServletRequest request) {
@@ -52,7 +52,7 @@ public class IpHelper {
 	/**
 	 * 通过IP获取地理信息地址
 	 * 
-	 * @param ip
+	 * @param ip 用户IP信息
 	 * @return 地理信息文字信息
 	 */
 	public static String getIpInfo(String ip) {
