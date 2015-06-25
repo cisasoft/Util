@@ -1,6 +1,8 @@
 package com.cisa.util.file;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 文件处理函数
@@ -90,6 +92,29 @@ public class FileHelper {
 		} else {
 			return false;
 		}
+	}
+	
+	/**
+	 * 获取源文件夹下所有文件
+	 * 
+	 * @param soruceFolder 源文件夹的绝对路径，例如C:\\test\\
+	 * @return 获得的文件绝对路径的list集合
+	 */
+	public static List<String> getFileFromFolder(String soruceFolder) {
+		List<String> fileList = new ArrayList<String>();
+		File node = new File(soruceFolder);
+		if (node.isFile()) { // add file only
+			fileList.add(node.getAbsoluteFile().toString());
+		}
+		if (node.isDirectory()) { // add directory
+			String[] subNode = node.list();
+			for (String filename : subNode) {
+				File f = new File(node, filename);
+				fileList.addAll(getFileFromFolder(f.getAbsoluteFile()
+						.toString()));
+			}
+		}
+		return fileList;
 	}
 
 }
