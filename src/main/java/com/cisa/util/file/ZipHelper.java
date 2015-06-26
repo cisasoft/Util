@@ -8,6 +8,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import com.cisa.util.encrypt.RandomHelper;
+
 /**
  * 压缩解压Zip文件
  * 
@@ -36,12 +38,10 @@ public class ZipHelper {
 			ZipOutputStream zos = new ZipOutputStream(fos);
 			ZipEntry ze = new ZipEntry(zipName);
 			zos.putNextEntry(ze);
-
 			int len;
 			while ((len = in.read(buffer)) > 0) {
 				zos.write(buffer, 0, len);
 			}
-
 			zos.closeEntry();
 			// remember close it
 			zos.close();
@@ -71,8 +71,18 @@ public class ZipHelper {
 			ZipOutputStream zos = new ZipOutputStream(fos);
 			System.out.println("Output to Zip : " + outputZipFile);
 			for (String file : fileList) {
+				File f = new File(file);
+				file = f.getAbsoluteFile().toString();
+				String separator = File.separator;
+				// 解决Windows下的文件路径分隔符为java中转义字符的问题
+				if (separator.equals("\\"))
+					separator = "\\\\";
+				// 解决多路径下的文件同名问题
+				String filename = RandomHelper.getRandom(4)
+						+ "_"
+						+ file.split(separator)[file.split(separator).length - 1];
 				System.out.println("File Added : " + file);
-				ZipEntry ze = new ZipEntry(file);
+				ZipEntry ze = new ZipEntry(filename);
 				zos.putNextEntry(ze);
 				FileInputStream in = new FileInputStream(file);
 				int len;
@@ -110,9 +120,15 @@ public class ZipHelper {
 			FileOutputStream fos = new FileOutputStream(outputZipFile);
 			ZipOutputStream zos = new ZipOutputStream(fos);
 			System.out.println("Output to Zip : " + outputZipFile);
+			File sf = new File(soruceFolder);
+			String sfName = sf.getAbsoluteFile().toString();
 			for (String file : fileList) {
+				File f = new File(file);
+				file = f.getAbsoluteFile().toString();
+				String filename = file.substring(sfName.length() + 1,
+						file.length());
 				System.out.println("File Added : " + file);
-				ZipEntry ze = new ZipEntry(file);
+				ZipEntry ze = new ZipEntry(filename);
 				zos.putNextEntry(ze);
 				FileInputStream in = new FileInputStream(file);
 				int len;
@@ -171,7 +187,6 @@ public class ZipHelper {
 				fos.close();
 				ze = zis.getNextEntry();
 			}
-
 			zis.closeEntry();
 			zis.close();
 			System.out.println("目录" + outputFolder + "解压完成");
