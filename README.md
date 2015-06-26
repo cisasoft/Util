@@ -8,7 +8,7 @@ PinyinHelper
 读取汉字，解析拼音
 
 EnglishHelper
-英文字符串处理类
+英文字符串处理
 
 QRCodeHelper
 二维码工具
@@ -19,14 +19,21 @@ ImageHelper
 MD5Helper
 获取字符串的md5加密值
 
+RandomHelper
+获取指定位数随机数
+
 ShortUUIDHelper
 获取22位短UUID值
 
 FileHelper
 文件处理助手，删除文件及文件夹
 
+ZipHelper
+压缩解压文件
+
 Office2pdfHelper
 office文档转pdf，目前仅支持Windows系统上调用
 
 IpHelper
 获取用户的地理位置信息
+
