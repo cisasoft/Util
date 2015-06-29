@@ -59,7 +59,7 @@ public class ZipHelper {
 	 * 多文件压缩
 	 * 
 	 * @param fileList
-	 *            压缩文件绝对路径的list列表，例如{C:\\test1.log，C:\\test2.log}
+	 *            压缩文件路径的list列表，例如{C:\\test1.log，C:\\test2.log}
 	 * @param OutputZipFile
 	 *            输出目标文件路径，例如C:\\MyFile.zip
 	 * @return 布尔值是否压缩成功
@@ -108,7 +108,7 @@ public class ZipHelper {
 	 * 对文件夹进行压缩
 	 * 
 	 * @param soruceFolder
-	 *            压缩源文件夹绝对路径，例如C:\\test\\
+	 *            压缩源文件夹路径，例如C:\\test\\
 	 * @param OutputZipFile
 	 *            输出目标文件路径，例如C:\\MyFile.zip
 	 * @return 布尔值是否压缩成功

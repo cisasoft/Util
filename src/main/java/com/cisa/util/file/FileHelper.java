@@ -97,8 +97,8 @@ public class FileHelper {
 	/**
 	 * 获取源文件夹下所有文件
 	 * 
-	 * @param soruceFolder 源文件夹的绝对路径，例如C:\\test\\
-	 * @return 获得的文件绝对路径的list集合
+	 * @param soruceFolder 源文件夹的路径，例如C:\\test\\
+	 * @return 获得的文件路径的list集合
 	 */
 	public static List<String> getFileFromFolder(String soruceFolder) {
 		List<String> fileList = new ArrayList<String>();
