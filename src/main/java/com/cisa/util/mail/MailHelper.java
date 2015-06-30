@@ -154,7 +154,7 @@ public class MailHelper {
 	 *            HTML页面路径，假如是拼接的字符串请先用流写入到文件，统一使用无BOM的UTF-8进行编码，例如
 	 *            "c://test//test.html"
 	 * @return MimeBodyPart MIME体对象
-	 * @throws Exception
+	 * @throws Exception 向父调用抛出异常
 	 */
 	public static MimeBodyPart createContent(String bodyPath) throws Exception {
 		// 用于保存最终版本
@@ -198,7 +198,7 @@ public class MailHelper {
 	 * @param fileNames
 	 *            附件路径list
 	 * @return MimeBodyPart MIME体对象list
-	 * @throws Exception
+	 * @throws Exception 向父调用抛出异常
 	 */
 	public static List<MimeBodyPart> createAttachments(List<String> fileNames)
 			throws Exception {

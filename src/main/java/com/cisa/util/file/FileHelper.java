@@ -1,6 +1,11 @@
 package com.cisa.util.file;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +14,7 @@ import java.util.List;
  * 
  * @author Xiaolong.Cisa
  * @version 1.0
- *
+ * 
  */
 public class FileHelper {
 
@@ -20,7 +25,7 @@ public class FileHelper {
 	 *            要删除的目录或文件
 	 * @return 删除成功返回 true，否则返回 false。
 	 */
-	public static boolean DeleteFolder(String sPath) {
+	public static boolean deleteFolder(String sPath) {
 		boolean flag = false;
 		File file = new File(sPath);
 		// 判断目录或文件是否存在
@@ -93,11 +98,12 @@ public class FileHelper {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 获取源文件夹下所有文件
 	 * 
-	 * @param soruceFolder 源文件夹的路径，例如C:\\test\\
+	 * @param soruceFolder
+	 *            源文件夹的路径，例如C:\\test\\
 	 * @return 获得的文件路径的list集合
 	 */
 	public static List<String> getFileFromFolder(String soruceFolder) {
@@ -117,4 +123,122 @@ public class FileHelper {
 		return fileList;
 	}
 
+	/**
+	 * 利用缓冲流进行单文件的复制工作
+	 * 
+	 * @param sourcefile
+	 *            源文件的File对象
+	 * @param targetFile
+	 *            目标文件的File对象
+	 * @return 是否复制成功的布尔值
+	 */
+	public static boolean copyFile(File sourcefile, File targetFile) {
+		try {
+			// 新建文件输入流并对它进行缓冲
+			FileInputStream input = new FileInputStream(sourcefile);
+			BufferedInputStream inbuff = new BufferedInputStream(input);
+
+			// 新建文件输出流并对它进行缓冲
+			FileOutputStream out = new FileOutputStream(targetFile);
+			BufferedOutputStream outbuff = new BufferedOutputStream(out);
+
+			// 缓冲数组
+			byte[] b = new byte[1024 * 5];
+			int len = 0;
+			while ((len = inbuff.read(b)) != -1) {
+				outbuff.write(b, 0, len);
+			}
+
+			// 刷新此缓冲的输出流
+			outbuff.flush();
+
+			// 关闭流
+			outbuff.close();
+			inbuff.close();
+			out.close();
+			input.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * 利用文件通道进行单文件的复制工作
+	 * 
+	 * @param sfPath
+	 *            源文件的路径
+	 * @param tfPath
+	 *            目标文件的路径
+	 * @return 是否复制成功的布尔值
+	 */
+	public static boolean copyFile(String sfPath, String tfPath) {
+		try {
+			// 新建文件输入流
+			FileInputStream input = new FileInputStream(sfPath);
+			FileChannel fin = input.getChannel();
+
+			// 新建文件输出流
+			FileOutputStream out = new FileOutputStream(tfPath);
+			FileChannel fout = out.getChannel();
+
+			fin.transferTo(0, fin.size(), fout);
+
+			fin.close();
+			fout.close();
+			out.close();
+			input.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * 复制整个目录下的子目录和文件，但不含创建这个根目录本身
+	 * 
+	 * @param sourceDir
+	 *            源目录路径
+	 * @param targetDir
+	 *            子目录路径
+	 * @return 返回是否成功的布尔值
+	 */
+	public static boolean copyDirectory(String sourceDir, String targetDir) {
+		try {
+			File sf = new File(sourceDir);
+			File tf = new File(targetDir);
+			// 新建目标目录
+			tf.mkdirs();
+			// 获取源文件夹当下的文件或目录
+			File[] file = sf.listFiles();
+			for (int i = 0; i < file.length; i++) {
+				if (file[i].isFile()) {
+					// 源文件
+					File sourceFile = file[i];
+					// 目标文件
+					File targetFile = new File(tf.getAbsolutePath()
+							+ File.separator + file[i].getName());
+					// copyFile(sourceFile, targetFile);
+					copyFile(sourceFile.getAbsolutePath(),
+							targetFile.getAbsolutePath());
+				}
+				if (file[i].isDirectory()) {
+					// 准备复制的源文件夹
+					String fromDir = file[i].getAbsolutePath();
+					// 准备复制的目标文件夹
+					String toDir = tf.getAbsolutePath() + File.separator
+							+ file[i].getName();
+					copyDirectory(fromDir, toDir);
+				}
+			}
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
