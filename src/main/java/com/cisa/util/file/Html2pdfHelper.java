@@ -42,6 +42,7 @@ public class Html2pdfHelper {
 			XMLWorkerHelper.getInstance().parseXHtml(writer, document,
 					new FileInputStream(htmlFile), Charset.forName("UTF-8"));
 			// step 5
+			writer.close();
 			document.close();
 			System.out.println("PDF Created!");
 			return true;

@@ -151,6 +151,7 @@ public class FileHelper {
 
 			// 刷新此缓冲的输出流
 			outbuff.flush();
+			out.flush();
 
 			// 关闭流
 			outbuff.close();
@@ -186,6 +187,7 @@ public class FileHelper {
 
 			fin.transferTo(0, fin.size(), fout);
 
+			out.flush();
 			fin.close();
 			fout.close();
 			out.close();

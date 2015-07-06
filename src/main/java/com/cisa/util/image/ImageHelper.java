@@ -47,6 +47,7 @@ public class ImageHelper {
 					.write(inputImage, formatName, outputStream);
 
 			// needs to close the streams
+			outputStream.flush();
 			outputStream.close();
 			inputStream.close();
 
