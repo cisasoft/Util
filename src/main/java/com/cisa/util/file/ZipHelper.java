@@ -44,7 +44,9 @@ public class ZipHelper {
 			}
 			zos.closeEntry();
 			// remember close it
+			zos.flush();
 			zos.close();
+			fos.flush();
 			fos.close();
 			in.close();
 			System.out.println("文件" + targetPath + "压缩完成");
@@ -93,7 +95,9 @@ public class ZipHelper {
 			}
 			zos.closeEntry();
 			// remember close it
+			zos.flush();
 			zos.close();
+			fos.flush();
 			fos.close();
 			System.out.println("文件" + outputZipFile + "压缩完成");
 			return true;
@@ -139,7 +143,9 @@ public class ZipHelper {
 			}
 			zos.closeEntry();
 			// remember close it
+			zos.flush();
 			zos.close();
+			fos.flush();
 			fos.close();
 			System.out.println("文件" + outputZipFile + "压缩完成");
 			return true;
@@ -164,7 +170,7 @@ public class ZipHelper {
 			// create output directory is not exists
 			File folder = new File(outputFolder);
 			if (!folder.exists()) {
-				folder.mkdir();
+				folder.mkdirs();
 			}
 			// get the zip file content
 			ZipInputStream zis = new ZipInputStream(new FileInputStream(
@@ -184,6 +190,7 @@ public class ZipHelper {
 				while ((len = zis.read(buffer)) > 0) {
 					fos.write(buffer, 0, len);
 				}
+				fos.flush();
 				fos.close();
 				ze = zis.getNextEntry();
 			}
