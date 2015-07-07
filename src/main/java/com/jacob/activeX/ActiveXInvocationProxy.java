@@ -59,7 +59,6 @@ public class ActiveXInvocationProxy extends InvocationProxy {
 	 * @see com.jacob.com.InvocationProxy#invoke(java.lang.String,
 	 *      com.jacob.com.Variant[])
 	 */
-	@SuppressWarnings("unchecked")
 	public Variant invoke(String methodName, Variant targetParameters[]) {
 		Variant mVariantToBeReturned = null;
 		if (mTargetObject == null) {
@@ -67,7 +66,7 @@ public class ActiveXInvocationProxy extends InvocationProxy {
 			// here
 			return null;
 		}
-		Class targetClass = mTargetObject.getClass();
+		Class<? extends Object> targetClass = mTargetObject.getClass();
 		if (methodName == null) {
 			throw new IllegalArgumentException(
 					"InvocationProxy: missing method name");
@@ -79,7 +78,7 @@ public class ActiveXInvocationProxy extends InvocationProxy {
 		try {
 			Method targetMethod;
 			Object parametersAsJavaObjects[] = getParametersAsJavaObjects(targetParameters);
-			Class parametersAsJavaClasses[] = getParametersAsJavaClasses(parametersAsJavaObjects);
+			Class<?> parametersAsJavaClasses[] = getParametersAsJavaClasses(parametersAsJavaObjects);
 			targetMethod = targetClass.getMethod(methodName,
 					parametersAsJavaClasses);
 			if (targetMethod != null) {
@@ -128,20 +127,19 @@ public class ActiveXInvocationProxy extends InvocationProxy {
 	 * @param parametersAsJavaObjects
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	private Class[] getParametersAsJavaClasses(Object[] parametersAsJavaObjects) {
+	private Class<?>[] getParametersAsJavaClasses(Object[] parametersAsJavaObjects) {
 		if (parametersAsJavaObjects == null) {
 			throw new IllegalArgumentException(
 					"This only works with an array of parameters");
 		}
 		int numParameters = parametersAsJavaObjects.length;
-		Class parametersAsJavaClasses[] = new Class[numParameters];
+		Class<?> parametersAsJavaClasses[] = new Class[numParameters];
 		for (int parameterIndex = 0; parameterIndex < numParameters; parameterIndex++) {
 			Object oneParameterObject = parametersAsJavaObjects[parameterIndex];
 			if (oneParameterObject == null) {
 				parametersAsJavaClasses[parameterIndex] = null;
 			} else {
-				Class oneParameterClass = oneParameterObject.getClass();
+				Class<? extends Object> oneParameterClass = oneParameterObject.getClass();
 				parametersAsJavaClasses[parameterIndex] = oneParameterClass;
 			}
 		}

@@ -25,6 +25,11 @@ package com.jacob.com;
 public abstract class ComException extends JacobException {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -302509495361613267L;
+	
+	/**
 	 * COM code initializes this filed with an appropriate return code that was
 	 * returned by the underlying com code
 	 */

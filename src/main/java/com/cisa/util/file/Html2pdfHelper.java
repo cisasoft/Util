@@ -191,7 +191,8 @@ public class Html2pdfHelper {
 			command = "wkhtmltoimage.exe" + " " + htmlPath + " " + imgFile;
 		} else if (localOS.toLowerCase().contains("linux")) {
 			System.out.println("本机是Linux操作系统");
-			command = "wkhtmltoimage-amd64" + " " + htmlPath + " " + imgFile;
+			//command = "wkhtmltoimage-amd64" + " " + htmlPath + " " + imgFile;
+			command = "wkhtmltoimage" + " " + htmlPath + " " + imgFile;
 		}
 		System.out.println("本机执行的操作系统命令是：\n" + command);
 

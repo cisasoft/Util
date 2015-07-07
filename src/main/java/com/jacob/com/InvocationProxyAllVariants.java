@@ -42,7 +42,6 @@ public class InvocationProxyAllVariants extends InvocationProxy {
 	 * @see com.jacob.com.InvocationProxy#invoke(java.lang.String,
 	 *      com.jacob.com.Variant[])
 	 */
-	@SuppressWarnings("unchecked")
 	public Variant invoke(String methodName, Variant targetParameters[]) {
 		Variant mVariantToBeReturned = null;
 		if (mTargetObject == null) {
@@ -54,7 +53,7 @@ public class InvocationProxyAllVariants extends InvocationProxy {
 			// here
 			return null;
 		}
-		Class targetClass = mTargetObject.getClass();
+		Class<? extends Object> targetClass = mTargetObject.getClass();
 		if (methodName == null) {
 			throw new IllegalArgumentException(
 					"InvocationProxy: missing method name");
