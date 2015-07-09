@@ -80,7 +80,8 @@ public class Html2pdfHelper {
 			command = "wkhtmltopdf.exe" + " " + htmlPath + " " + pdfFile;
 		} else if (localOS.toLowerCase().contains("linux")) {
 			System.out.println("本机是Linux操作系统");
-			command = "wkhtmltopdf-amd64" + " " + htmlPath + " " + pdfFile;
+			//command = "wkhtmltopdf-amd64" + " " + htmlPath + " " + pdfFile;
+			command = "/usr/local/bin/wkhtmltopdf" + " " + htmlPath + " " + pdfFile;
 		}
 		System.out.println("本机执行的操作系统命令是：\n" + command);
 
@@ -192,7 +193,7 @@ public class Html2pdfHelper {
 		} else if (localOS.toLowerCase().contains("linux")) {
 			System.out.println("本机是Linux操作系统");
 			//command = "wkhtmltoimage-amd64" + " " + htmlPath + " " + imgFile;
-			command = "wkhtmltoimage" + " " + htmlPath + " " + imgFile;
+			command = "/usr/local/bin/wkhtmltoimage" + " " + htmlPath + " " + imgFile;
 		}
 		System.out.println("本机执行的操作系统命令是：\n" + command);
 
