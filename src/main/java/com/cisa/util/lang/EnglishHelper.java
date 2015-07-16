@@ -1,4 +1,4 @@
-package com.cisa.util.en;
+package com.cisa.util.lang;
 
 /**
  * 英文字符串处理函数

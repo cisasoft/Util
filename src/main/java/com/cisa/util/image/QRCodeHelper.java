@@ -1,4 +1,4 @@
-package com.cisa.util.qrcode;
+package com.cisa.util.image;
 
 import java.io.File;
 import java.io.FileInputStream;

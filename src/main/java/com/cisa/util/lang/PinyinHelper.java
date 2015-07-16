@@ -1,4 +1,4 @@
-package com.cisa.util.cn2py;
+package com.cisa.util.lang;
 
 import java.util.LinkedHashSet;
 import java.util.Properties;

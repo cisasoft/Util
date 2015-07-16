@@ -1,4 +1,4 @@
-package com.cisa.util.cn2py;
+package com.cisa.util.lang;
 
 /**
  * 拼音格式类

@@ -34,5 +34,4 @@ public class Base64Helper {
 		String s = new String(b);
 		return s;
 	}
-
 }
