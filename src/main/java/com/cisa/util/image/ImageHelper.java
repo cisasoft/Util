@@ -35,6 +35,13 @@ public class ImageHelper {
 	public static boolean convertFormat(String inputImagePath,
 			String outputImagePath, String formatName) {
 		try {
+			// 防止父目录没有建立报错，协助建立父亲目录
+			File tmpFile = new File(outputImagePath);
+			if (!tmpFile.exists()) {
+				tmpFile.mkdirs();
+				tmpFile.delete();
+			}
+
 			FileInputStream inputStream = new FileInputStream(inputImagePath);
 			FileOutputStream outputStream = new FileOutputStream(
 					outputImagePath);
@@ -72,6 +79,12 @@ public class ImageHelper {
 	public static boolean addTextWatermark(String text, String inputImagePath,
 			String outputImagePath) {
 		try {
+			// 防止父目录没有建立报错，协助建立父亲目录
+			File tmpFile = new File(outputImagePath);
+			if (!tmpFile.exists()) {
+				tmpFile.mkdirs();
+				tmpFile.delete();
+			}
 			File sourceImageFile = new File(inputImagePath);
 			File destImageFile = new File(outputImagePath);
 
@@ -121,6 +134,12 @@ public class ImageHelper {
 	public static boolean addImageWatermark(String watermarkImageFilePath,
 			String inputImagePath, String outputImagePath) {
 		try {
+			// 防止父目录没有建立报错，协助建立父亲目录
+			File tmpFile = new File(outputImagePath);
+			if (!tmpFile.exists()) {
+				tmpFile.mkdirs();
+				tmpFile.delete();
+			}
 			File watermarkImageFile = new File(watermarkImageFilePath);
 			File sourceImageFile = new File(inputImagePath);
 			File destImageFile = new File(outputImagePath);

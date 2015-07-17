@@ -15,6 +15,7 @@ import javax.net.ssl.HttpsURLConnection;
  * 
  */
 public class RequestHelper {
+	//TODO
 
 	private final static String USER_AGENT = "Mozilla/5.0";
 

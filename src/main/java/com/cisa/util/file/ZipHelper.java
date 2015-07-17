@@ -22,9 +22,9 @@ public class ZipHelper {
 	 * 单文件压缩
 	 * 
 	 * @param sorucePath
-	 *            需要压缩的文件路径，例如 C:\\test.log
+	 *            需要压缩的文件路径，例如 C:/test.log
 	 * @param targetPath
-	 *            输出目标文件路径，例如C:\\MyFile.zip
+	 *            输出目标文件路径，例如C:/MyFile.zip
 	 * @param zipName
 	 *            压缩包内文件更名为，例如rename.log表示将test.log更名为rename.log
 	 * @return 布尔值是否压缩成功
@@ -32,6 +32,13 @@ public class ZipHelper {
 	public static boolean zipFile(String sorucePath, String targetPath,
 			String zipName) {
 		try {
+			// 防止父目录没有建立报错，协助建立父亲目录
+			File tmpFile = new File(targetPath);
+			if (!tmpFile.exists()) {
+				tmpFile.mkdirs();
+				tmpFile.delete();
+			}
+
 			byte[] buffer = new byte[1024];
 			FileInputStream in = new FileInputStream(sorucePath);
 			FileOutputStream fos = new FileOutputStream(targetPath);
@@ -61,13 +68,20 @@ public class ZipHelper {
 	 * 多文件压缩
 	 * 
 	 * @param fileList
-	 *            压缩文件路径的list列表，例如{C:\\test1.log，C:\\test2.log}
+	 *            压缩文件路径的list列表，例如{C:/test1.log，C:/test2.log}
 	 * @param outputZipFile
-	 *            输出目标文件路径，例如C:\\MyFile.zip
+	 *            输出目标文件路径，例如C:/MyFile.zip
 	 * @return 布尔值是否压缩成功
 	 */
 	public static boolean zipFiles(List<String> fileList, String outputZipFile) {
 		try {
+			// 防止父目录没有建立报错，协助建立父亲目录
+			File tmpFile = new File(outputZipFile);
+			if (!tmpFile.exists()) {
+				tmpFile.mkdirs();
+				tmpFile.delete();
+			}
+
 			byte[] buffer = new byte[1024];
 			FileOutputStream fos = new FileOutputStream(outputZipFile);
 			ZipOutputStream zos = new ZipOutputStream(fos);
@@ -112,14 +126,21 @@ public class ZipHelper {
 	 * 对文件夹进行压缩
 	 * 
 	 * @param soruceFolder
-	 *            压缩源文件夹路径，例如C:\\test\\
+	 *            压缩源文件夹路径，例如C:/test
 	 * @param outputZipFile
-	 *            输出目标文件路径，例如C:\\MyFile.zip
+	 *            输出目标文件路径，例如C:/MyFile.zip
 	 * @return 布尔值是否压缩成功
 	 */
 	public static boolean zipFolders(String soruceFolder, String outputZipFile) {
 		List<String> fileList = FileHelper.getFileFromFolder(soruceFolder);
 		try {
+			// 防止父目录没有建立报错，协助建立父亲目录
+			File tmpFile = new File(outputZipFile);
+			if (!tmpFile.exists()) {
+				tmpFile.mkdirs();
+				tmpFile.delete();
+			}
+
 			byte[] buffer = new byte[1024];
 			FileOutputStream fos = new FileOutputStream(outputZipFile);
 			ZipOutputStream zos = new ZipOutputStream(fos);
@@ -159,9 +180,9 @@ public class ZipHelper {
 	 * 解压Zip文件
 	 * 
 	 * @param inputZipFile
-	 *            需要解压的源文件，例如C:\\MyFile.zip
+	 *            需要解压的源文件，例如C:/MyFile.zip
 	 * @param outputFolder
-	 *            需要输出的文件夹，例如C:\\test\\
+	 *            需要输出的文件夹，例如C:/test
 	 * @return 是否解压成功布尔值
 	 */
 	public static boolean unZip(String inputZipFile, String outputFolder) {

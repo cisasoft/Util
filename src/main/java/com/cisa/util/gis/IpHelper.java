@@ -19,14 +19,14 @@ import com.alibaba.fastjson.JSONObject;
  * 
  * @author Daniel
  * @version 1.0
- * 
  */
 public class IpHelper {
 
 	/**
 	 * 获取登录用户的IP数字地址
 	 * 
-	 * @param request HTTP请求的request，类型为HttpServletRequest
+	 * @param request
+	 *            HTTP请求的request，类型为HttpServletRequest
 	 * @return IP的String类型字符串
 	 */
 	public static String getIpAddr(HttpServletRequest request) {
@@ -52,13 +52,15 @@ public class IpHelper {
 	/**
 	 * 通过IP获取地理信息地址
 	 * 
-	 * @param ip 用户IP信息
+	 * @param ip
+	 *            用户IP信息
 	 * @return 地理信息文字信息
 	 */
 	public static String getIpInfo(String ip) {
 		String info = "";
 		try {
-			URL url = new URL("http://ip.taobao.com/service/getIpInfo.php?ip=" + ip);
+			URL url = new URL("http://ip.taobao.com/service/getIpInfo.php?ip="
+					+ ip);
 			HttpURLConnection htpcon = (HttpURLConnection) url.openConnection();
 			htpcon.setRequestMethod("GET");
 			htpcon.setDoOutput(true);
@@ -66,7 +68,8 @@ public class IpHelper {
 			htpcon.setUseCaches(false);
 
 			InputStream in = htpcon.getInputStream();
-			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+			BufferedReader bufferedReader = new BufferedReader(
+					new InputStreamReader(in));
 			StringBuffer temp = new StringBuffer();
 			String line = bufferedReader.readLine();
 			while (line != null) {

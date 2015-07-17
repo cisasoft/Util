@@ -30,20 +30,27 @@ public class QRCodeHelper {
 	 * 字符串生成二维码
 	 * 
 	 * @param qrCodeData
-	 * 			需要解析的字符串
+	 *            需要解析的字符串
 	 * @param filePath
-	 * 			图片路径，例如：".\\target\\QR_Code.JPG"
+	 *            图片路径，例如：".\\target\\QR_Code.JPG"
 	 * @param charset
-	 * 			字符串编码，例如："UTF-8"
+	 *            字符串编码，例如："UTF-8"
 	 * @param qrCodeheight
-	 * 			图片高度
+	 *            图片高度
 	 * @param qrCodewidth
-	 * 			图片宽度
+	 *            图片宽度
 	 * @return 是否成功的布尔值
 	 */
 	public static boolean createQRCode(String qrCodeData, String filePath,
 			String charset, int qrCodeheight, int qrCodewidth) {
 		try {
+			// 防止父目录没有建立报错，协助建立父亲目录
+			File tmpFile = new File(filePath);
+			if (!tmpFile.exists()) {
+				tmpFile.mkdirs();
+				tmpFile.delete();
+			}
+
 			BitMatrix matrix = new MultiFormatWriter().encode(new String(
 					qrCodeData.getBytes(charset), charset),
 					BarcodeFormat.QR_CODE, qrCodewidth, qrCodeheight);
@@ -61,13 +68,16 @@ public class QRCodeHelper {
 	 * 二维码解析成字符串
 	 * 
 	 * @param filePath
-	 * 			文件路径，例如：".\\target\\QR_Code.JPG"
+	 *            文件路径，例如：".\\target\\QR_Code.JPG"
 	 * @param charset
-	 * 			字符串编码，例如："UTF-8"
+	 *            字符串编码，例如："UTF-8"
 	 * @return 解析出来的字符串
-	 * @throws FileNotFoundException 文件未找到
-	 * @throws IOException IO流问题
-	 * @throws NotFoundException 未找到信息
+	 * @throws FileNotFoundException
+	 *             文件未找到
+	 * @throws IOException
+	 *             IO流问题
+	 * @throws NotFoundException
+	 *             未找到信息
 	 */
 	public static String readQRCode(String filePath, String charset)
 			throws FileNotFoundException, IOException, NotFoundException {

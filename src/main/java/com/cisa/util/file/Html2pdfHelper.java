@@ -13,6 +13,12 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 
+/**
+ * html网页转pdf
+ * 
+ * @author Xiaolong.Cisa
+ * @version 1.0
+ */
 public class Html2pdfHelper {
 
 	/**
@@ -22,11 +28,18 @@ public class Html2pdfHelper {
 	 * @param htmlFile
 	 *            原html文件路径，不含网址解析
 	 * @param pdfFile
-	 *            指定的pdf输出路径
+	 *            指定的pdf输出路径，例如 c:/test/test.pdf
 	 * @return 返回的布尔值是否成功
 	 */
 	public static boolean getPdfWithItext(String htmlFile, String pdfFile) {
 		try {
+			// 防止父目录没有建立报错，协助建立父亲目录
+			File tmpFile = new File(pdfFile);
+			if (!tmpFile.exists()) {
+				tmpFile.mkdirs();
+				tmpFile.delete();
+			}
+
 			// step 1
 			Document document = new Document();
 			// step 2
@@ -58,18 +71,27 @@ public class Html2pdfHelper {
 	 * 注意：使用前面先设置环境变量，把wkhtmltopdf安装路径的bin目录加入path中，本方法仅支持64位的调用
 	 * 
 	 * @param htmlPath
-	 *            html文件的路径或是URL网址，例如 c://test//test.html或http://www.baidu.com/
+	 *            html文件的路径或是URL网址，例如 c:/test/test.html 或 http://www.baidu.com/
 	 * @param pdfFile
-	 *            输出的pdf文件路径，例如 c://test//test.pdf
+	 *            输出的pdf文件路径，例如 c:/test/test.pdf
+	 * @param exePath
+	 *            用户自定义的程序执行路径，如果设置，执行路径则会覆盖环境变量，例如：/usr/local/bin/wkhtmltopdf
 	 * @return 返回的布尔值是否成功
 	 */
-	public static boolean wkhtmltopdf(String htmlPath, String pdfFile) {
+	public static boolean wkhtmltopdf(String htmlPath, String pdfFile,
+			String exePath) {
+
+		// 防止父目录没有建立报错，协助建立父亲目录
+		File tmpFile = new File(pdfFile);
+		if (!tmpFile.exists()) {
+			tmpFile.mkdirs();
+			tmpFile.delete();
+		}
 
 		File hf = new File(htmlPath);
 		if (hf.exists())
 			htmlPath = new File(htmlPath).getAbsoluteFile().toString();
 		pdfFile = new File(pdfFile).getAbsoluteFile().toString();
-		// htmlPath = "http://mybatis.co.uk/";
 
 		// 获取操作系统版本Windows和linux分别不同处理
 		String command = null;
@@ -80,8 +102,13 @@ public class Html2pdfHelper {
 			command = "wkhtmltopdf.exe" + " " + htmlPath + " " + pdfFile;
 		} else if (localOS.toLowerCase().contains("linux")) {
 			System.out.println("本机是Linux操作系统");
-			//command = "wkhtmltopdf-amd64" + " " + htmlPath + " " + pdfFile;
-			command = "/usr/local/bin/wkhtmltopdf" + " " + htmlPath + " " + pdfFile;
+			// command = "wkhtmltopdf-amd64" + " " + htmlPath + " " + pdfFile;
+			command = "/usr/local/bin/wkhtmltopdf" + " " + htmlPath + " "
+					+ pdfFile;
+		}
+		// 如果用户设置了执行路径，那么用户的设置值将覆盖默认系统值
+		if (exePath != null && !exePath.equals("")) {
+			command = exePath + " " + htmlPath + " " + pdfFile;
 		}
 		System.out.println("本机执行的操作系统命令是：\n" + command);
 
@@ -170,18 +197,27 @@ public class Html2pdfHelper {
 	 * 注意：使用前面先设置环境变量，把wkhtmltopdf安装路径的bin目录加入path中，本方法仅支持64位的调用
 	 * 
 	 * @param htmlPath
-	 *            html文件的路径或是URL网址，例如 c://test//test.html或http://www.baidu.com/
+	 *            html文件的路径或是URL网址，例如 c:/test/test.html 或 http://www.baidu.com/
 	 * @param imgFile
-	 *            输出的jpg文件路径，例如 c://test//test.jpg
+	 *            输出的jpg文件路径，例如 c:/test/test.jpg
+	 * @param exePath
+	 *            用户自定义的程序执行路径，如果设置，执行路径则会覆盖环境变量，例如：/usr/local/bin/wkhtmltopdf
 	 * @return 返回的布尔值是否成功
 	 */
-	public static boolean wkhtmltoimg(String htmlPath, String imgFile) {
+	public static boolean wkhtmltoimg(String htmlPath, String imgFile,
+			String exePath) {
+
+		// 防止父目录没有建立报错，协助建立父亲目录
+		File tmpFile = new File(imgFile);
+		if (!tmpFile.exists()) {
+			tmpFile.mkdirs();
+			tmpFile.delete();
+		}
 
 		File hf = new File(htmlPath);
 		if (hf.exists())
 			htmlPath = new File(htmlPath).getAbsoluteFile().toString();
 		imgFile = new File(imgFile).getAbsoluteFile().toString();
-		// htmlPath = "http://mybatis.co.uk/";
 
 		// 获取操作系统版本Windows和linux分别不同处理
 		String command = null;
@@ -192,8 +228,13 @@ public class Html2pdfHelper {
 			command = "wkhtmltoimage.exe" + " " + htmlPath + " " + imgFile;
 		} else if (localOS.toLowerCase().contains("linux")) {
 			System.out.println("本机是Linux操作系统");
-			//command = "wkhtmltoimage-amd64" + " " + htmlPath + " " + imgFile;
-			command = "/usr/local/bin/wkhtmltoimage" + " " + htmlPath + " " + imgFile;
+			// command = "wkhtmltoimage-amd64" + " " + htmlPath + " " + imgFile;
+			command = "/usr/local/bin/wkhtmltoimage" + " " + htmlPath + " "
+					+ imgFile;
+		}
+		// 如果用户设置了执行路径，那么用户的设置值将覆盖默认系统值
+		if (exePath != null && !exePath.equals("")) {
+			command = exePath + " " + htmlPath + " " + imgFile;
 		}
 		System.out.println("本机执行的操作系统命令是：\n" + command);
 

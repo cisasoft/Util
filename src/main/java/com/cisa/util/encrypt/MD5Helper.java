@@ -9,11 +9,12 @@ import java.security.MessageDigest;
  * @version 1.0
  */
 public class MD5Helper {
-	
+
 	/**
 	 * 获取文件的MD5加密值
 	 * 
-	 * @param s 传入需要进行加密的字符串
+	 * @param s
+	 *            传入需要进行加密的字符串
 	 * @return 返回String类型的32位加密码
 	 */
 	public final static String getMD5(String s) {
@@ -42,5 +43,5 @@ public class MD5Helper {
 			return null;
 		}
 	}
-	
+
 }

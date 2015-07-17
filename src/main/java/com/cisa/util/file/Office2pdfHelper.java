@@ -9,14 +9,12 @@ import com.jacob.com.Dispatch;
  * 
  * @author Xiaolong.Cisa
  * @version 1.0
- * 
  */
 public class Office2pdfHelper {
 
 	private static final int wdFormatPDF = 17;
 	private static final int xlTypePDF = 0;
 	private static final int ppSaveAsPDF = 32;
-
 	// private static final int msoTrue = -1;
 	// private static final int msofalse = 0;
 
@@ -24,13 +22,21 @@ public class Office2pdfHelper {
 	 * 转PDF的调用方法
 	 * 
 	 * @param inputFile
-	 *            输入文件来源，例如：C:\\test\\src.xls
+	 *            输入文件来源，例如：C:/test/src.xls
 	 * @param pdfFile
-	 *            输出pdf目标，例如：C:\\test\\target.pdf
+	 *            输出pdf目标，例如：C:/test/target.pdf
 	 * @return 是否转换成功的布尔值
 	 */
 	// 直接调用这个方法即可
-	public boolean convert2PDF(String inputFile, String pdfFile) {
+	public static boolean convert2PDF(String inputFile, String pdfFile) {
+
+		// 防止父目录没有建立报错，协助建立父亲目录
+		File tmpFile = new File(pdfFile);
+		if (!tmpFile.exists()) {
+			tmpFile.mkdirs();
+			tmpFile.delete();
+		}
+
 		String suffix = getFileSufix(inputFile);
 		File file = new File(inputFile);
 		if (!file.exists()) {
@@ -59,7 +65,7 @@ public class Office2pdfHelper {
 		return fileName.substring(splitIndex + 1);
 	}
 
-	public boolean word2PDF(String inputFile, String pdfFile) {
+	public static boolean word2PDF(String inputFile, String pdfFile) {
 		try {
 			// 打开word应用程序
 			ActiveXComponent app = new ActiveXComponent("Word.Application");
@@ -83,11 +89,12 @@ public class Office2pdfHelper {
 			app.invoke("Quit", 0);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
 
-	public boolean excel2PDF(String inputFile, String pdfFile) {
+	public static boolean excel2PDF(String inputFile, String pdfFile) {
 		try {
 			ActiveXComponent app = new ActiveXComponent("Excel.Application");
 			app.setProperty("Visible", false);
@@ -99,40 +106,37 @@ public class Office2pdfHelper {
 			app.invoke("Quit");
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 
 	}
 
-	public boolean ppt2PDF(String inputFile, String pdfFile) {
+	public static boolean ppt2PDF(String inputFile, String pdfFile) {
 		try {
 			ActiveXComponent app = new ActiveXComponent(
 					"PowerPoint.Application");
 			// app.setProperty("Visible", msofalse);
 			Dispatch ppts = app.getProperty("Presentations").toDispatch();
-
 			Dispatch ppt = Dispatch.call(ppts, "Open", inputFile, true,// ReadOnly
 					true,// Untitled指定文件是否有标题
 					false// WithWindow指定文件是否可见
 					).toDispatch();
-
 			Dispatch.call(ppt, "SaveAs", pdfFile, ppSaveAsPDF);
-
 			Dispatch.call(ppt, "Close");
-
 			app.invoke("Quit");
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
 
-	/*public static void main(String[] args) {
-		Office2pdfHelper oh = new Office2pdfHelper();
-		// System.out.println(System.getProperty("java.library.path"));
-		// System.loadLibrary("jacob-1.17-M2-x86");
-		String s1 = "c:\\test\\es.xlsx";
-		String s2 = "c:\\test\\et.pdf";
-		oh.convert2PDF(s1, s2);
-	}*/
+	/*
+	 * public static void main(String[] args) { Office2pdfHelper oh = new
+	 * Office2pdfHelper(); //
+	 * System.out.println(System.getProperty("java.library.path")); //
+	 * System.loadLibrary("jacob-1.17-M2-x86"); String s1 = "c:\\test\\es.xlsx";
+	 * String s2 = "c:\\test\\et.pdf"; oh.convert2PDF(s1, s2); }
+	 */
 }
