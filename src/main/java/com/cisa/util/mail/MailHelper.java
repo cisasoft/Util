@@ -68,12 +68,12 @@ public class MailHelper {
 			isr.close();
 			is.close();
 			// 需要从property里面面截取的参数，设置协议、是否身份验证、服务器等信息
-			@SuppressWarnings("unused")
+			/*@SuppressWarnings("unused")
 			String Protocol = prop.getProperty("mail.transport.protocol");
 			@SuppressWarnings("unused")
 			String Auth = prop.getProperty("mail.smtp.auth");
 			@SuppressWarnings("unused")
-			String Host = prop.getProperty("mail.host");
+			String Host = prop.getProperty("mail.host");*/
 			String user = prop.getProperty("user");
 			String password = prop.getProperty("password");
 			Authenticator auth = new SimpleAuthenticator(user, password);

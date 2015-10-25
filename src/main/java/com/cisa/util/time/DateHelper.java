@@ -56,4 +56,15 @@ public class DateHelper {
 		} else
 			return false;
 	}
+	
+	/**
+	 * long类型时间转为字符串类型时间
+	 * @param l long类型时间
+	 * @return 时间格式字符串 yyyy-MM-dd HH:mm:ss
+	 */
+	public static String longToString(long l){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date= new Date(l);
+		return sdf.format(date);
+	}
 }
